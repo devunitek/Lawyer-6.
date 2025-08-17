@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Make an Appointment</title>
+
+  <!-- Load EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+        emailjs.init("OWgiK5VsEC-opSE5B"); // ✅ Your Public Key
+    })();
+  </script>
+</head>
+<body>
+  <div class="col-lg-5">
+    <div style="background:#fff;padding:30px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);">
+      <h3 style="text-align:center;font-weight:700;margin-bottom:20px;">Make An Appointment</h3>
+      <p style="text-align:center;font-size:15px;color:#666;margin-bottom:25px;">
+        Book a consultation with our legal experts today.
+      </p>
+
+      <!-- ✅ Appointment Form -->
+      <form id="appointment-form" style="display:flex;flex-direction:column;gap:15px">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="phone" placeholder="Phone No." required />
+        <input type="date" name="date" required />
+        <button type="submit">Submit</button>
+      </form>
+
+      <div id="form-message" style="margin-top:10px;font-weight:bold;"></div>
+    </div>
+  </div>
+
+  <!-- ✅ Script for sending -->
+  <script>
+  document.getElementById('appointment-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm('service_gh5az67', 'template_zajvtxm', this)
+        .then(function() {
+            document.getElementById("form-message").innerText = "✅ Appointment request sent successfully!";
+        }, function(error) {
+            document.getElementById("form-message").innerText = "❌ Failed to send. Please try again.";
+            console.error("EmailJS error:", error);
+        });
+  });
+  </script>
+</body>
+</html>
